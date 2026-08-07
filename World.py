@@ -46,7 +46,7 @@ class World:
             self.firms
         )
 
-        self.government.collect_taxes(self.households)
+        self.government.collect_household_taxes(self.households)
 
         self.government.spend(self.households)
 

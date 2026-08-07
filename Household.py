@@ -1,4 +1,3 @@
-from World import World
 
 class Household:
     def __init__(self):
