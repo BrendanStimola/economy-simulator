@@ -1,3 +1,5 @@
+from World import World
+
 class Household:
     def __init__(self):
 
@@ -7,14 +9,27 @@ class Household:
 
         self.job = False
 
-    def buy(self, firm):
+    def buy(self, firms):
 
-        if self.money >= firm.price and firm.invetory > 0:
+        affordable = []
 
-            self.money -= firm.price
+        for firm in firms:
+
+            if self.money >= firm.price and firm.inventory > 0:
+
+                affordable.append(firm)
+
+
+        if len(affordable) > 0:
+
+            cheapest = min(affordable, key=lambda firm: firm.price)
+
+            self.money -= cheapest.price
 
             self.goods += 1
 
-            firm.invetory -= 1
+            cheapest.money += cheapest.price
 
-            firm.money += firm.price
+            cheapest.inventory -= 1
+
+            cheapest.sales += 1

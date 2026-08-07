@@ -5,10 +5,15 @@ class Market:
 
     def run(self, households, firms):
 
+        for firm in firms:
+
+            firm.sales = 0
+
         for household in households:
 
-            firm = firms[0]
-
-            household.buy(firm)
+            household.buy(firms)
 
             self.transactions += 1
+
+            for firm in firms:
+                firm.adjust_price()

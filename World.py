@@ -1,6 +1,7 @@
 from Household import Household
 from Firm import Firm
 from Market import Market
+from Government import Government
 
 class World:
     def __init__(self):
@@ -13,18 +14,23 @@ class World:
 
         self.market = Market()
 
+        self.government = Government()
+
         self.create_world()
 
     def create_world(self):
 
         for i in range(10):
 
-            self.households.append(Household())
+            self.households.append(
+                Household()
+            )
 
         for i in range(3):
 
-            self.firms.append(Firm())
-
+            self.firms.append(
+                Firm(f"Firm {i + 1}")
+            )
     def update(self):
 
         self.day += 1
@@ -39,3 +45,9 @@ class World:
 
             self.firms
         )
+
+        self.government.collect_taxes(self.households)
+
+        self.government.spend(self.households)
+
+        self.government.update_budget()
