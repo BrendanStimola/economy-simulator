@@ -91,3 +91,23 @@ for i in range(days):
         f"Loan Losses: "
         f"${economy.bank.loan_losses:.2f}"
     )
+
+    print(
+        f"Bank Assets: "
+        f"${economy.bank.total_assets():.2f}"
+    )
+
+    print(
+        f"Bank Liabilities: "
+        f"${economy.bank.total_liabilities():.2f}"
+        )
+
+    print(
+        f"Bank Capital: "
+        f"${economy.bank.calculate_capital():.2f}"
+    )
+
+    print(
+        f"Capital Ratio: "
+        f"{economy.bank.capital_ratio() * 100:.2f}%"
+    )

@@ -25,6 +25,8 @@ class Bank:
 
         self.loan_losses = 0
 
+        self.minimum_capital_ratio = 0.08
+
     def deposit(self, customer, amount):
         if amount < 0:
             return False
@@ -208,3 +210,21 @@ class Bank:
         borrower.loan_interest_rate = 0
 
         return loan_amount
+    
+    def total_assets(self):
+        return self.reserves + self.loans
+
+    def total_liabilities(self):
+        return self.deposits
+
+    def calculate_capital(self):
+        return self.total_assets() - self.total_liabilities()
+
+    def capital_ratio(self):
+
+        assets = self.total_assets()
+
+        if assets <= 0:
+            return 0
+
+        return self.calculate_capital()/assets

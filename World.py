@@ -109,8 +109,6 @@ class World:
 
         self.day += 1
 
-        self.bank.deposit_interest = 0
-
         for firm in self.firms:
             
             firm.produce()
