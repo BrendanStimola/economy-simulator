@@ -43,6 +43,10 @@ class World:
 
                 self.bank.deposit(household, 20)
 
+        for household in self.households:
+
+            self.bank.pay_deposit_interest(household)
+
         for firm in self.firms:
 
             if firm.inventory <= 10:
@@ -56,6 +60,8 @@ class World:
     def update(self):
 
         self.day += 1
+
+        self.bank.deposit_interest = 0
 
         for firm in self.firms:
             

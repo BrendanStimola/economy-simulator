@@ -11,7 +11,11 @@ class Bank:
 
         self.loan_interest_rate = 0.05
 
+        self.deposit_interest_rate = 0.02
+
         self.interest_income = 0
+
+        self.deposit_interest = 0
 
         self.number_of_loans = 0
 
@@ -30,6 +34,21 @@ class Bank:
         self.reserves += amount
 
         return True
+
+    def pay_deposit_interest(self, customer):
+
+        if customer.deposit <= 0:
+            return False
+
+        interest = (customer.deposit * self.deposit_interest_rate/365)
+
+        customer.deposit += interest
+
+        self.reserves -= interest
+
+        self.deposit_interest += interest
+
+        return interest
 
     def withdraw(self, customer, amount):
         if amount <= 0:

@@ -3,8 +3,11 @@ from World import World
 
 economy = World()
 
+days = input("How many days?")
 
-for i in range(10):
+days = int(days)
+
+for i in range(days):
 
     economy.update()
 
@@ -66,6 +69,11 @@ for i in range(10):
     print(
         f"Reserves: "
         f"${economy.bank.reserves:.2f}"
+    )
+
+    print(
+        f"Deposit Interest: "
+        f"${economy.bank.deposit_interest:.2f}"
     )
 
     print(
