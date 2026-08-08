@@ -51,11 +51,37 @@ class World:
 
             if firm.inventory <= 10:
 
-                loan_given = self.bank.lend(firm, 50)
+                score = self.bank.credit_score(firm)
 
-                if loan_given:
+                rate = self.bank.get_loan_interest_rate(firm)
 
-                    firm.invest(50)
+                print(
+                f"{firm.name}: "
+                f"Credit Score = {score}, "
+                f"Loan Rate = {rate}"
+                )
+
+            loan_given = self.bank.lend(
+
+                firm,
+                50
+            )
+
+            if loan_given:
+
+                print(
+
+                    f"{firm.name} borrowed $50"
+                )
+
+                firm.invest(50)
+
+            else:
+
+                print(
+
+                    f"{firm.name} loan rejected"
+                )
     
     def update(self):
 

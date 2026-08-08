@@ -19,6 +19,8 @@ class Bank:
 
         self.number_of_loans = 0
 
+        self.maximum_loan = 100
+
     def deposit(self, customer, amount):
         if amount < 0:
             return False
@@ -74,12 +76,16 @@ class Bank:
             return False
         if amount > self.reserves:
             return False
+
+        interest_rate = self.get_loan_interest_rate(borrower)
         
         self.reserves -= amount
 
         borrower.money += amount
 
-        borrower.loan = getattr(borrower, "loan", 0)+amount
+        borrower.loan += amount
+
+        borrower.loan_interest_rate = interest_rate
 
         self.loans += amount
 
@@ -91,7 +97,7 @@ class Bank:
         if borrower.loan <= 0:
             return 0
         
-        interest = (borrower.loan * self.loan_interest_rate)
+        interest = (borrower.loan * borrower.loan_interest_rate)
 
         if borrower.money < interest:
             return 0
@@ -124,4 +130,41 @@ class Bank:
 
         self.reserves += repayment
 
+        return True
+
+    def credit_score(self, borrower):
+
+        score = 100
+
+        if borrower.loan > borrower.money:
+            score -= 30
+        if borrower.profit < 0:
+            score -= 30
+        if borrower.loan > borrower.maximum_debt * 0.75:
+            score -= 20
+        return score
+
+    def get_loan_interest_rate(self, borrower):
+        score = self.credit_score(borrower)
+        if score >= 80:
+            return 0.05
+        elif score >= 60:
+            return 0.07
+        elif score >= 50:
+            return 0.1
+        else:
+            return None
+
+    def assess_credit(self, borrower, amount):
+        if amount <= 0:
+            return False
+        if amount >= self.maximum_loan:
+            return False
+        if amount > self.reserves:
+            return False
+        if borrower.loan + amount > borrower.maximum_debt:
+            return False
+        interest_rate = self.get_loan_interest_rate(borrower)
+        if interest_rate is None:
+            return False
         return True

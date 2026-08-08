@@ -17,6 +17,10 @@ class Firm:
 
         self.loan = 0
 
+        self.profit = 0
+
+        self.maximum_debt = 100
+
     def produce(self):
 
         self.inventory += self.production

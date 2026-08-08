@@ -22,7 +22,8 @@ for i in range(days):
             f"Money: ${firm.money:.2f} | "
             f"Inventory: {firm.inventory} | "
             f"Price: ${firm.price:.2f} | "
-            f"Sales: {firm.sales}"
+            f"Sales: {firm.sales} | "
+            f"Profit: ${firm.profit:.2f}"
         )
 
     print("\nHouseholds:")
