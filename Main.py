@@ -111,3 +111,8 @@ for i in range(days):
         f"Capital Ratio: "
         f"{economy.bank.capital_ratio() * 100:.2f}%"
     )
+
+    print(
+        f"Liquidity Ratio: "
+        f"{economy.bank.liquidity_ratio() * 100:.2f}%"
+    )

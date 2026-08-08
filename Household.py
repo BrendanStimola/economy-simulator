@@ -1,6 +1,7 @@
+import random
 
 class Household:
-    def __init__(self):
+    def __init__(self, name):
 
         self.money = 100
 
@@ -11,6 +12,8 @@ class Household:
         self.loan = 0
 
         self.job = False
+
+        self.name = name
 
     def buy(self, firms):
 
@@ -36,3 +39,6 @@ class Household:
             cheapest.inventory -= 1
 
             cheapest.sales += 1
+
+    def wants_to_withdraw(self):
+        return random.random() < 0.05

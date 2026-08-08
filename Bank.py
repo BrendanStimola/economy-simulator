@@ -27,6 +27,8 @@ class Bank:
 
         self.minimum_capital_ratio = 0.08
 
+        self.minimum_liquidity_ratio = 0.10
+
     def deposit(self, customer, amount):
         if amount < 0:
             return False
@@ -228,3 +230,9 @@ class Bank:
             return 0
 
         return self.calculate_capital()/assets
+
+    def liquidity_ratio(self):
+
+        if self.deposits <= 0:
+            return 0
+        return self.reserves/self.deposits

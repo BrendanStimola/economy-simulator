@@ -26,7 +26,7 @@ class World:
         for i in range(10):
 
             self.households.append(
-                Household()
+                Household(f"Household {i + 1}")
             )
 
         for i in range(3):
@@ -46,6 +46,36 @@ class World:
         for household in self.households:
 
             self.bank.pay_deposit_interest(household)
+
+        for household in self.households:
+
+            if household.wants_to_withdraw():
+
+                amount = min(household.deposit, 20)
+
+                if amount > 0:
+                    withdrawn = self.bank.withdraw(household, 20)
+
+                    if withdrawn:
+
+                        print(
+
+                            f"{household.name} "
+
+                            f"withdrew ${amount:.2f}"
+
+                        )
+
+                    else:
+
+                        print(
+
+                            f"{household.name} "
+
+                            f"could not withdraw"
+
+                        )
+
 
         for firm in self.firms:
 
