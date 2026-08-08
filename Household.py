@@ -6,6 +6,10 @@ class Household:
 
         self.goods = 0
 
+        self.deposit = 0
+
+        self.loan = 0
+
         self.job = False
 
     def buy(self, firms):

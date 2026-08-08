@@ -13,6 +13,10 @@ class Firm:
 
         self.sales = 0
 
+        self.deposit = 0
+
+        self.loan = 0
+
     def produce(self):
 
         self.inventory += self.production
@@ -26,3 +30,15 @@ class Firm:
         if self.inventory > 10:
 
             self.price *= 0.95
+
+    def invest(self, amount):
+
+        if self.money >= amount:
+
+            self.money -= amount
+
+            self.production += 1
+
+            return True
+        
+        return False

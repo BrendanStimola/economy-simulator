@@ -2,6 +2,7 @@ from Household import Household
 from Firm import Firm
 from Market import Market
 from Government import Government
+from Bank import Bank
 
 class World:
     def __init__(self):
@@ -15,6 +16,8 @@ class World:
         self.market = Market()
 
         self.government = Government()
+
+        self.bank = Bank()
 
         self.create_world()
 
@@ -31,6 +34,25 @@ class World:
             self.firms.append(
                 Firm(f"Firm {i + 1}")
             )
+
+    def banking_activity(self):
+
+        for household in self.households:
+
+            if household.money > 80:
+
+                self.bank.deposit(household, 20)
+
+        for firm in self.firms:
+
+            if firm.inventory <= 10:
+
+                loan_given = self.bank.lend(firm, 50)
+
+                if loan_given:
+
+                    firm.invest(50)
+    
     def update(self):
 
         self.day += 1
@@ -45,6 +67,8 @@ class World:
 
             self.firms
         )
+
+        self.banking_activity()
 
         self.government.collect_household_taxes(self.households)
 

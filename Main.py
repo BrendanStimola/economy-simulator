@@ -50,3 +50,25 @@ for i in range(10):
     print(
         f"Debt: ${economy.government.debt:.2f}"
     )
+
+    print("\n--- Bank ---")
+
+    print(
+        f"Deposits: "
+        f"${economy.bank.deposits:.2f}"
+    )
+
+    print(
+        f"Loans: "
+        f"${economy.bank.loans:.2f}"
+    )
+
+    print(
+        f"Reserves: "
+        f"${economy.bank.reserves:.2f}"
+    )
+
+    print(
+        f"Interest Income: "
+        f"${economy.bank.interest_income:.2f}"
+    )
