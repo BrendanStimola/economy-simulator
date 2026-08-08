@@ -81,3 +81,13 @@ for i in range(days):
         f"Interest Income: "
         f"${economy.bank.interest_income:.2f}"
     )
+
+    print(
+        f"Defaulted Loans: "
+        f"{economy.bank.defaulted_loans}"
+    )
+
+    print(
+        f"Loan Losses: "
+        f"${economy.bank.loan_losses:.2f}"
+    )

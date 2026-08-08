@@ -49,6 +49,28 @@ class World:
 
         for firm in self.firms:
 
+            if firm.loan > 0:
+
+                paid = self.bank.process_loan_payments(firm)
+
+
+                if paid:
+
+                    print(
+
+                        f"{firm.name} paid loan interest"
+
+                    )
+
+                else:
+
+                    print(
+
+                        f"{firm.name} DEFAULTED"
+                    )
+
+        for firm in self.firms:
+
             if firm.inventory <= 10:
 
                 score = self.bank.credit_score(firm)

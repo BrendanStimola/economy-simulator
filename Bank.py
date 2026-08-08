@@ -21,6 +21,10 @@ class Bank:
 
         self.maximum_loan = 100
 
+        self.defaulted_loans = 0
+
+        self.loan_losses = 0
+
     def deposit(self, customer, amount):
         if amount < 0:
             return False
@@ -168,3 +172,39 @@ class Bank:
         if interest_rate is None:
             return False
         return True
+
+    def process_loan_payments(self, borrower):
+        if borrower.loan <= 0:
+            return True
+        interest = (borrower.loan * borrower.loan_interest_rate)
+
+        if borrower.money >= interest:
+
+            borrower.money -= interest
+
+            self.reserves += interest
+
+            self.interest_income += interest
+
+            return True
+        else:
+            self.default_loan(borrower)
+            return False
+
+    def default_loan(self, borrower):
+
+        loan_amount = borrower.loan
+
+        self.defaulted_loans += 1
+
+        self.loan_losses += loan_amount
+
+        self.loans -= loan_amount
+
+        self.reserves -= loan_amount
+
+        borrower.loan = 0
+
+        borrower.loan_interest_rate = 0
+
+        return loan_amount
