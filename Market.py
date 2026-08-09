@@ -14,6 +14,3 @@ class Market:
             household.buy(firms)
 
             self.transactions += 1
-
-            for firm in firms:
-                firm.adjust_price()

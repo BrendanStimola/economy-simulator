@@ -113,47 +113,55 @@ class World:
                 f"Loan Rate = {rate}"
                 )
 
-            loan_given = self.bank.lend(
+                loan_given = self.bank.lend(
 
-                firm,
-                50
-            )
-
-            if loan_given:
-
-                print(
-
-                    f"{firm.name} borrowed $50"
+                    firm,
+                    50
                 )
 
-                firm.invest(50)
+                if loan_given:
 
-            else:
+                    print(
 
-                print(
+                        f"{firm.name} borrowed $50"
+                    )
 
-                    f"{firm.name} loan rejected"
-                )
+                    firm.invest(50)
+
+                else:
+
+                    print(
+
+                        f"{firm.name} loan rejected"
+                    )
+
+    def pricing_activity(self):
+        for firm in self.firms:
+            competitors = [other for other in self.firms if other != firm]
+            firm.adjust_price(competitors)
     
     def update(self):
 
         self.day += 1
 
+        self.banking_activity()
+
         for firm in self.firms:
-            
             firm.produce()
 
         self.market.run(
-
-            self.households, 
-
+            self.households,
             self.firms
         )
 
-        self.banking_activity()
+        self.pricing_activity()
 
-        self.government.collect_household_taxes(self.households)
+        self.government.collect_household_taxes(
+            self.households
+        )
 
-        self.government.spend(self.households)
+        self.government.spend(
+            self.households
+        )
 
         self.government.update_budget()

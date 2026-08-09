@@ -7,6 +7,9 @@ days = input("How many days?")
 
 days = int(days)
 
+for firm in economy.firms:
+    rating = economy.bank.credit_score(firm)
+
 for i in range(days):
 
     economy.update()
@@ -23,7 +26,7 @@ for i in range(days):
             f"Inventory: {firm.inventory} | "
             f"Price: ${firm.price:.2f} | "
             f"Sales: {firm.sales} | "
-            f"Profit: ${firm.profit:.2f}"
+            f"Rating: {rating:.2f}"
         )
 
     print("\nHouseholds:")
@@ -110,6 +113,11 @@ for i in range(days):
     print(
         f"Capital Ratio: "
         f"{economy.bank.capital_ratio() * 100:.2f}%"
+    )
+
+    print(
+        f"Minimum Capital Ratio: "
+        f"{economy.bank.minimum_capital_ratio * 100:.2f}%"
     )
 
     print(

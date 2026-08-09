@@ -175,12 +175,15 @@ class Bank:
         interest_rate = self.get_loan_interest_rate(borrower)
         if interest_rate is None:
             return False
+        projected_ratio = self.projected_capital_ratio(amount)
+        if projected_ratio < self.minimum_capital_ratio:
+            return False
         return True
 
     def process_loan_payments(self, borrower):
         if borrower.loan <= 0:
             return True
-        interest = (borrower.loan * borrower.loan_interest_rate)
+        interest = (borrower.loan * borrower.loan_interest_rate)/365
 
         if borrower.money >= interest:
 
@@ -228,6 +231,8 @@ class Bank:
 
         if assets <= 0:
             return 0
+        if self.calculate_capital() <= 0:
+            return 0
 
         return self.calculate_capital()/assets
 
@@ -236,3 +241,13 @@ class Bank:
         if self.deposits <= 0:
             return 0
         return self.reserves/self.deposits
+
+    def projected_capital_ratio(self, amount):
+        projected_assets = self.total_assets() + amount
+
+        if projected_assets <= 0:
+            return 0
+
+        capital = self.calculate_capital()
+
+        return capital / projected_assets
