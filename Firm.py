@@ -17,11 +17,21 @@ class Firm:
 
         self.loan = 0
 
+        self.revenue = 0
+
         self.profit = 0
 
         self.maximum_debt = 100
 
         self.minimum_price = 1
+
+        self.investment_need = 50
+
+        self.workers = []
+
+        self.wages = 20
+
+        self.wage_bill = 0
 
     def produce(self):
 
@@ -58,3 +68,22 @@ class Firm:
             return True
         
         return False
+
+    def wants_loan(self):
+        if self.money < 600:
+            return True
+        elif self.inventory <= 20:
+            return True
+        else:
+            return False
+
+    def pay_wages(self):
+        self.wage_bill = 0
+        for worker in self.workers:
+            if self.money < self.wages:
+                break
+            self.money -= self.wages
+            worker.money += self.wages
+            worker.wage_income += self.wages
+            worker.total_income += self.wages
+            self.wage_bill += self.wages

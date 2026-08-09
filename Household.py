@@ -11,34 +11,63 @@ class Household:
 
         self.loan = 0
 
-        self.job = False
+        self.wage_income = 0
+
+        self.transfer_income = 0
+
+        self.interest_income = 0
+
+        self.total_income = 0
+
+        self.consumption = 0
+
+        self.savings = 0
 
         self.name = name
 
+    def reset_daily_income(self):
+        self.wage_income = 0
+        self.transfer_income = 0
+        self.interest_income = 0
+        self.total_income = 0
+        self.consumption = 0
+        self.goods = 0
+
     def buy(self, firms):
 
-        affordable = []
+        while self.consumption < self.total_income * 0.8 and self.money > 0:
 
-        for firm in firms:
+            affordable = []
 
-            if self.money >= firm.price and firm.inventory > 0:
+            for firm in firms:
 
-                affordable.append(firm)
+                if self.money >= firm.price and firm.inventory > 0:
+
+                    affordable.append(firm)
 
 
-        if len(affordable) > 0:
+            if len(affordable) > 0:
 
-            cheapest = min(affordable, key=lambda firm: firm.price)
+                cheapest = min(affordable, key=lambda firm: firm.price)
 
-            self.money -= cheapest.price
+                self.money -= cheapest.price
 
-            self.goods += 1
+                self.consumption += cheapest.price
 
-            cheapest.money += cheapest.price
+                self.goods += 1
 
-            cheapest.inventory -= 1
+                cheapest.money += cheapest.price
 
-            cheapest.sales += 1
+                cheapest.inventory -= 1
+
+                cheapest.sales += 1
+
+            else:
+                
+                break
 
     def wants_to_withdraw(self):
-        return random.random() < 0.05
+        if self.deposit > 20:
+            if random.random() < 0.5:
+                return True
+        return False

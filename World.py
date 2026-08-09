@@ -21,6 +21,12 @@ class World:
 
         self.create_world()
 
+        self.firms[0].workers = self.households[0:4]
+
+        self.firms[1].workers = self.households[4:7]
+
+        self.firms[2].workers = self.households[7:10]
+
     def create_world(self):
 
         for i in range(10):
@@ -43,6 +49,8 @@ class World:
 
                 self.bank.deposit(household, 20)
 
+                household.savings += 20
+
         for household in self.households:
 
             self.bank.pay_deposit_interest(household)
@@ -58,11 +66,13 @@ class World:
 
                     if withdrawn:
 
+                        household.savings -= amount
+                        
                         print(
 
                             f"{household.name} "
 
-                            f"withdrew ${amount:.2f}"
+                            f"withdrew ${amount:.2f} and has ${household.savings:.2f} savings left"
 
                         )
 
@@ -101,7 +111,7 @@ class World:
 
         for firm in self.firms:
 
-            if firm.inventory <= 10:
+            if firm.wants_loan():
 
                 score = self.bank.credit_score(firm)
 
@@ -143,6 +153,12 @@ class World:
     def update(self):
 
         self.day += 1
+
+        for household in self.households:
+            household.reset_daily_income()
+
+        for firm in self.firms:
+            firm.pay_wages()
 
         self.banking_activity()
 

@@ -7,9 +7,6 @@ days = input("How many days?")
 
 days = int(days)
 
-for firm in economy.firms:
-    rating = economy.bank.credit_score(firm)
-
 for i in range(days):
 
     economy.update()
@@ -26,7 +23,8 @@ for i in range(days):
             f"Inventory: {firm.inventory} | "
             f"Price: ${firm.price:.2f} | "
             f"Sales: {firm.sales} | "
-            f"Rating: {rating:.2f}"
+            f"Rating: {economy.bank.credit_score(firm):.2f} | "
+            f"Loan: ${firm.loan:.2f} | "
         )
 
     print("\nHouseholds:")
@@ -36,7 +34,8 @@ for i in range(days):
         print(
             f"Household {i + 1} | "
             f"Money: ${household.money:.2f} | "
-            f"Goods: {household.goods}"
+            f"Savings: ${household.savings:.2f} | "
+            f"Goods: {household.goods} | "
         )
         
     print("\nGovernment:")
@@ -60,67 +59,12 @@ for i in range(days):
 
     print("\n--- Bank ---")
 
-    print(
-        f"Deposits: "
-        f"${economy.bank.deposits:.2f}"
-    )
-
-    print(
-        f"Loans: "
-        f"${economy.bank.loans:.2f}"
-    )
-
-    print(
-        f"Reserves: "
-        f"${economy.bank.reserves:.2f}"
-    )
-
-    print(
-        f"Deposit Interest: "
-        f"${economy.bank.deposit_interest:.2f}"
-    )
-
-    print(
-        f"Interest Income: "
-        f"${economy.bank.interest_income:.2f}"
-    )
-
-    print(
-        f"Defaulted Loans: "
-        f"{economy.bank.defaulted_loans}"
-    )
-
-    print(
-        f"Loan Losses: "
-        f"${economy.bank.loan_losses:.2f}"
-    )
-
-    print(
-        f"Bank Assets: "
-        f"${economy.bank.total_assets():.2f}"
-    )
-
-    print(
-        f"Bank Liabilities: "
-        f"${economy.bank.total_liabilities():.2f}"
-        )
-
-    print(
-        f"Bank Capital: "
-        f"${economy.bank.calculate_capital():.2f}"
-    )
-
-    print(
-        f"Capital Ratio: "
-        f"{economy.bank.capital_ratio() * 100:.2f}%"
-    )
-
-    print(
-        f"Minimum Capital Ratio: "
-        f"{economy.bank.minimum_capital_ratio * 100:.2f}%"
-    )
-
-    print(
-        f"Liquidity Ratio: "
-        f"{economy.bank.liquidity_ratio() * 100:.2f}%"
-    )
+    print(f"Deposits: ${economy.bank.deposits:.2f}")
+    print(f"Loans: ${economy.bank.loans:.2f}")
+    print(f"Reserves: ${economy.bank.reserves:.2f}")   
+    print(f"Assets: ${economy.bank.total_assets():.2f}")
+    print(f"Liabilities: ${economy.bank.total_liabilities():.2f}")
+    print(f"Capital: ${economy.bank.calculate_capital():.2f}")
+    print(f"Capital Ratio: {economy.bank.capital_ratio():.2%}")
+    print(f"Liquidity Ratio: {economy.bank.liquidity_ratio():.2%}")
+    print(f"Defaulted Loans: {economy.bank.defaulted_loans}")

@@ -18,9 +18,9 @@ class Government:
 
         for household in households:
 
-            tax = household.money * self.tax_rate
+            tax = household.wage_income * self.tax_rate
 
-            household.money -= tax
+            household.wage_income -= tax
 
             self.revenue += tax
 
@@ -30,7 +30,7 @@ class Government:
 
         for household in households:
             
-            household.money += payment
+            household.transfer_income += payment
 
     def update_budget(self):
 

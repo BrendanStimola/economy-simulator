@@ -7,7 +7,7 @@ class Bank:
 
         self.loans = 0
 
-        self.reserves = 0
+        self.reserves = 100
 
         self.loan_interest_rate = 0.05
 
@@ -82,12 +82,18 @@ class Bank:
 
         if amount <= 0:
             return False
-        if amount > self.reserves:
+        if borrower.loan + amount > borrower.maximum_debt:
+            print("too much debt")
             return False
 
         interest_rate = self.get_loan_interest_rate(borrower)
-        
-        self.reserves -= amount
+
+        if interest_rate is None:
+            return False
+        future_capital_ratio = self.projected_capital_ratio(amount)
+        if future_capital_ratio < self.minimum_capital_ratio:
+            print(f"capital ratio too low: {future_capital_ratio}")
+            return False
 
         borrower.money += amount
 
@@ -96,6 +102,8 @@ class Bank:
         borrower.loan_interest_rate = interest_rate
 
         self.loans += amount
+
+        self.deposits += amount
 
         self.number_of_loans += 1
 
@@ -144,7 +152,7 @@ class Bank:
 
         score = 100
 
-        if borrower.loan > borrower.money:
+        if borrower.money <= 100:
             score -= 30
         if borrower.profit < 0:
             score -= 30
@@ -166,7 +174,7 @@ class Bank:
     def assess_credit(self, borrower, amount):
         if amount <= 0:
             return False
-        if amount >= self.maximum_loan:
+        if amount > self.maximum_loan:
             return False
         if amount > self.reserves:
             return False
